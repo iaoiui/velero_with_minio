@@ -4,26 +4,26 @@ Kubernetes backup &amp; restore sample with Velero &amp; Minio
 # Quick Start
 
 ```sh
-kind create cluster
+$ kind create cluster
 
-sh quickstat.sh
-kubectl get po -n velero
+$ sh quickstat.sh
+$ kubectl get po -n velero
 ```
 
 # Backup Test
 
 ```sh
-sh 10_deploy_sampleapp_with_pv.sh 
-kubectl get po -n nginx-example
+$ sh 10_deploy_sampleapp_with_pv.sh 
+$ kubectl get po -n nginx-example
 
-sh 20_backup.sh 
+$ sh 20_backup.sh 
 Backup request "nginx-backup" submitted successfully.
 Run `velero backup describe nginx-backup` or `velero backup logs nginx-backup` for more details.
 
-sh 21_simulate_disaster.sh 
+$ sh 21_simulate_disaster.sh 
 namespace "nginx-example" deleted
 
-kubectl get ns
+$ kubectl get ns
 NAME              STATUS   AGE
 default           Active   4m4s
 kube-node-lease   Active   4m5s
@@ -31,11 +31,11 @@ kube-public       Active   4m6s
 kube-system       Active   4m6s
 velero            Active   3m51s
 
-sh 22_restore.sh 
+$ sh 22_restore.sh 
 Restore request "nginx-backup-20200308174714" submitted successfully.
 Run `velero restore describe nginx-backup-20200308174714` or `velero restore logs nginx-backup-20200308174714` for more details.
 
-kubectl get ns
+$ kubectl get ns
 NAME              STATUS   AGE
 default           Active   4m39s
 kube-node-lease   Active   4m40s
@@ -44,7 +44,7 @@ kube-system       Active   4m41s
 nginx-example     Active   11s
 velero            Active   4m26s
 
-sh 23_verify.sh 
+$ sh 23_verify.sh 
 NAME                                   READY   STATUS    RESTARTS   AGE
 pod/nginx-deployment-f96b7fd86-6kjll   2/2     Running   0          79s
 
@@ -69,7 +69,7 @@ pvc-5e9d15c6-8296-41fd-8f5c-4597b720c6cc   50Mi       RWO            Delete     
 # Cleanup
 
 ```sh
-sh 99_uninstall_velero.sh 
+$ sh 99_uninstall_velero.sh 
 namespace "velero" deleted
 clusterrolebinding.rbac.authorization.k8s.io "velero" deleted
 customresourcedefinition.apiextensions.k8s.io "backups.velero.io" deleted
@@ -84,5 +84,5 @@ customresourcedefinition.apiextensions.k8s.io "schedules.velero.io" deleted
 customresourcedefinition.apiextensions.k8s.io "serverstatusrequests.velero.io" deleted
 customresourcedefinition.apiextensions.k8s.io "volumesnapshotlocations.velero.io" deleted
 
-kind delete cluster
+$ kind delete cluster
 ```
