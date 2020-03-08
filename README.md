@@ -2,13 +2,17 @@
 Kubernetes backup &amp; restore sample with Velero &amp; Minio
 
 # Quick Start
+
+```sh
 kind create cluster
 
 sh quickstat.sh
 kubectl get po -n velero
+```
 
 # Backup Test
 
+```sh
 sh 10_deploy_sampleapp_with_pv.sh 
 kubectl get po -n nginx-example
 
@@ -60,8 +64,11 @@ replicaset.apps/nginx-deployment-f96b7fd86   1         1         1       79s
 
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                      STORAGECLASS   REASON   AGE
 pvc-5e9d15c6-8296-41fd-8f5c-4597b720c6cc   50Mi       RWO            Delete           Bound    nginx-example/nginx-logs   standard                79s
+```
 
 # Cleanup
+
+```sh
 sh 99_uninstall_velero.sh 
 namespace "velero" deleted
 clusterrolebinding.rbac.authorization.k8s.io "velero" deleted
@@ -78,3 +85,4 @@ customresourcedefinition.apiextensions.k8s.io "serverstatusrequests.velero.io" d
 customresourcedefinition.apiextensions.k8s.io "volumesnapshotlocations.velero.io" deleted
 
 kind delete cluster
+```
